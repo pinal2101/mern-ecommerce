@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
+import Home from './components/Home';
+import Login from './components/Login';
+import Checkout from './components/Checkout';
+
+// PrivateRoute: protects routes like Home & Checkout
+const PrivateRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  return token ? children : <Navigate to="/login" />;
+};
 
 function App() {
+  const token = localStorage.getItem('token'); // check login
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/home">Home</Link> | 
+        <Link to="/checkout">Checkout</Link> |
+        <Link to="/login">Login</Link>
+      </nav>
+
+      <Routes>
+        {/* Default route redirects based on login status */}
+        <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
+
+        <Route path="/login" element={<Login />} />
+
+        {/* Protected routes */}
+        <Route
+          path="/home"
+          element={
+            <PrivateRoute>
+              <Home />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <PrivateRoute>
+              <Checkout />
+            </PrivateRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
