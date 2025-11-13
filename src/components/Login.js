@@ -13,11 +13,8 @@ function Login() {
       alert('Please enter username and password');
       return;
     }
-
-    // Save a fake token in localStorage
     localStorage.setItem('token', btoa(`${username}:${password}`));
 
-    // Redirect to Home after login
     navigate('/home');
   };
 

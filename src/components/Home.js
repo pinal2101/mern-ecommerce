@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const [products, setProducts] = useState([]);
-  const [showPopup, setShowPopup] = useState(false); // popup state
+  const [showPopup, setShowPopup] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,9 +18,8 @@ function Home() {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-    setShowPopup(true); // show popup
+    setShowPopup(true);
 
-    // hide popup after 2 seconds
     setTimeout(() => setShowPopup(false), 2000);
   };
 

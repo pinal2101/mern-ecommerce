@@ -3,14 +3,13 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Checkout from './components/Checkout';
 
-// PrivateRoute: protects routes like Home & Checkout
 const PrivateRoute = ({ children }) => {
   const token = localStorage.getItem('token');
   return token ? children : <Navigate to="/login" />;
 };
 
 function App() {
-  const token = localStorage.getItem('token'); // check login
+  const token = localStorage.getItem('token'); 
 
   return (
     <BrowserRouter>
@@ -21,12 +20,10 @@ function App() {
       </nav>
 
       <Routes>
-        {/* Default route redirects based on login status */}
         <Route path="/" element={token ? <Navigate to="/home" /> : <Navigate to="/login" />} />
 
         <Route path="/login" element={<Login />} />
 
-        {/* Protected routes */}
         <Route
           path="/home"
           element={

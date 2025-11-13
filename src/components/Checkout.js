@@ -8,7 +8,7 @@ function Checkout() {
 
   return (
     <div style={{ padding: '20px' }}>
-      {/* Back to Home Button */}
+    
       <button 
         onClick={() => navigate('/')} 
         style={{
